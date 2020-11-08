@@ -1,0 +1,2 @@
+# gotenv
+Simple dotenv clone
