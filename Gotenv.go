@@ -2,6 +2,7 @@ package gotenv
 
 import (
 	"bufio"
+	"io"
 	"os"
 	"strings"
 )
@@ -14,8 +15,11 @@ func read(f string, d dotenv) error {
 		return err
 	}
 	defer file.Close()
+	return parse(file, d)
+}
 
-	s := bufio.NewScanner(file)
+func parse(r io.Reader, d dotenv) error {
+	s := bufio.NewScanner(r)
 	for s.Scan() {
 		l := s.Text()
 		if i := strings.Index(l, "="); i >= 0 {
